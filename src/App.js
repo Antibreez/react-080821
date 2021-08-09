@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Car from './Car/Car';
+import Counter from './Counter/Counter';
 
 function App() {
   const [cars, setCars] = useState([
@@ -8,7 +9,7 @@ function App() {
     {name: 'Mazda', year: 2016},
     {name: 'Lada', year: 2010}
   ]);
-  const [carsVisible, setCarsVisibility] = useState(false);
+  const [carsVisible, setCarsVisibility] = useState(true);
   const [pageTitle, setPageTitle] = useState('Page Title');
 
   const handleTitleChange = (titleName) => {
@@ -46,10 +47,19 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={{textAlign: 'center'}}>
       <h1>{pageTitle}</h1>
 
-      <button onClick={handleViewClick}>Toggle View</button>
+      <div style={{margin: '20px auto'}}>
+        <Counter/>
+      </div>
+
+      <button 
+        style={{marginBottom: 20}} 
+        onClick={handleViewClick}
+      >
+        Toggle View
+      </button>
 
       {/* {
         cars.map((car, index) => {
