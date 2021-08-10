@@ -12,6 +12,8 @@ function App() {
   const [carsVisible, setCarsVisibility] = useState(true);
   const [pageTitle, setPageTitle] = useState('Page Title');
 
+  const focusRef = React.createRef();
+
   const handleTitleChange = (titleName) => {
     setPageTitle(titleName);
   }
@@ -28,22 +30,28 @@ function App() {
     setCars(newCars);
   }
 
+  const handleViewClick = () => {
+    setCarsVisibility(!carsVisible);
+  }
+
+  const handleFocusClick = () => {
+      focusRef.current && focusRef.current.focus();
+  }
+
   let carsToShow = null;
 
   if (carsVisible) {
     carsToShow = cars.map((car, index) => {
       return <Car 
-        key={index} 
-        name={car.name} 
+        key={index}
+        index={index}
+        inputFocusRef={index === 1 ? focusRef : null}
+        name={car.name}
         year={car.year}
         onDelete={handleDeleteCar.bind(this, index)}
         onChangeName={event => handleNameChange(event.target.value, index)}
       />
     })
-  }
-
-  const handleViewClick = () => {
-    setCarsVisibility(!carsVisible);
   }
 
   return (
@@ -60,6 +68,10 @@ function App() {
       >
         Toggle View
       </button>
+
+      <div>
+        <button onClick={handleFocusClick}>To input</button>
+      </div>
 
       {/* {
         cars.map((car, index) => {
