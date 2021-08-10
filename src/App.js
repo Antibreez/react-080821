@@ -3,7 +3,10 @@ import './App.css';
 import Car from './Car/Car';
 import Counter from './Counter/Counter';
 
+export const ClickedContext = React.createContext(false);
+
 function App() {
+  const [clicked, setClick] = useState(false);
   const [cars, setCars] = useState([
     {name: 'Audi', year: 2018},
     {name: 'Mazda', year: 2016},
@@ -59,7 +62,9 @@ function App() {
       <h1>{pageTitle}</h1>
 
       <div style={{margin: '20px auto'}}>
-        <Counter/>
+        <ClickedContext.Provider value={clicked}>
+          <Counter />
+        </ClickedContext.Provider>
       </div>
 
       <button 
@@ -72,6 +77,8 @@ function App() {
       <div>
         <button onClick={handleFocusClick}>To input</button>
       </div>
+
+      <button onClick={() => setClick(true)}>Change Clicked</button>
 
       {/* {
         cars.map((car, index) => {
